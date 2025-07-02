@@ -20,7 +20,8 @@ const ModeloDados = styled.div`
 `
 
 export default function Exibidor(props) {
-  return <Modelo>
+  return Object.keys(props.produto).length > 0 ? 
+  <Modelo>
     <ModeloImagens>
       <img
         src={props.produto.imagens[0]}
@@ -42,5 +43,9 @@ export default function Exibidor(props) {
       <div> {props.produto.descricao} </div>
       <button> Adicionar ao Carrinho </button>
     </ModeloDados>
+  </Modelo>
+  :
+  <Modelo>
+    <ModeloDados>Produto não encontrado!</ModeloDados>
   </Modelo>
 }

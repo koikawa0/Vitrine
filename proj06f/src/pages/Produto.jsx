@@ -13,7 +13,9 @@ export default function Produto() {
       <a href="/carrinho">Carrinho</a>
     </Navegacao>
 
-    <Exibidor produto={ProdutosExemplo.find((produto) => produto.codigo == codigo)}/>
+    <Exibidor produto={
+      ProdutosExemplo.find((produto) => produto.codigo == codigo)
+      }/>
 
     const {codigo} = useParams()
   </>
