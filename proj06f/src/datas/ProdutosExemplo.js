@@ -6,7 +6,7 @@ const ProdutosExemplo = [
       preco: 1000,
       descricao: "O produto é muito bonito porque...",
       imagens: [
-          "wp1.jpg"
+          "wp1.jpg", "wp12.jpg", "wp13.jpg"
       ]
   },
   {
@@ -16,7 +16,7 @@ const ProdutosExemplo = [
     preco: 3000,
     descricao: "O produto é muito bonito porque...",
     imagens: [
-        "wp2.jpg"
+        "wp2.jpg", "wp22.jpg", "wp23.jpg"
     ]
 },
 {
@@ -26,7 +26,7 @@ const ProdutosExemplo = [
   preco: 5000,
   descricao: "O produto é muito bonito porque...",
   imagens: [
-      "wp3.jpg"
+      "wp3.jpg", "wp32.jpg", "wp33.jpg"
   ]
 }
 ]

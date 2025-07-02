@@ -6,6 +6,7 @@ import Exibidor from "../components/Exibidor"
 import ProdutosExemplo from "../datas/ProdutosExemplo"
 
 export default function Produto() {
+  const {codigo} = useParams()
   return <>
     <Navegacao titulo="VITRINE">
       <a href="/">Inicio</a>
@@ -16,7 +17,5 @@ export default function Produto() {
     <Exibidor produto={
       ProdutosExemplo.find((produto) => produto.codigo == codigo)
       }/>
-
-    const {codigo} = useParams()
   </>
 }
