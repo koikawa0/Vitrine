@@ -1,17 +1,22 @@
 import React from "react"
 
 import Navegacao from "../components/Navegacao"
-import Principal from "../components/Principal"
+import Exibidor from "../components/Exibidor"
+
 import ProdutosExemplo from "../datas/ProdutosExemplo"
 
-export default function Vitrine() {
+export default function Promocao() {
   return <>
     <Navegacao titulo="VITRINE">
       <a href="/">Início</a>
-      <a href="/produto/1234">Promoção</a>
+      <a href="/promocao">Promoção</a>
       <a href="/carrinho">Carrinho</a>
     </Navegacao>
 
-    <Principal produtos={ProdutosExemplo}/>
+    {ProdutosExemplo.map((produto, indice) =>
+  produto.promocao
+    ? <Exibidor key={indice} produto={produto} />
+    : null
+)}
   </>
 }

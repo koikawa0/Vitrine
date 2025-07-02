@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+import Produto from "../pages/Produto"
 
 const Modelo = styled.div`
     background: #fff;
@@ -20,19 +21,26 @@ const ModeloDados = styled.div`
 `
 
 export default function Exibidor(props) {
+  if (!props.produto) {
+    return (
+      <Modelo>
+        <ModeloDados>Produto não encontrado!</ModeloDados>
+      </Modelo>
+    );
+  }
   return Object.keys(props.produto).length > 0 ? 
   <Modelo>
     <ModeloImagens>
       <img
-        src={props.produto.imagens[0]}
+        src={`/${props.produto.imagens[0]}`}
         alt="Foto do Produto"
         height={450} />
       <img
-        src={props.produto.imagens[1]}
+        src={`/${props.produto.imagens[1]}`}
         alt="Foto do Produto"
         height={450} />
       <img
-        src={props.produto.imagens[2]}
+        src={`/${props.produto.imagens[2]}`}
         alt="Foto do Produto"
         height={450} />
     </ModeloImagens>

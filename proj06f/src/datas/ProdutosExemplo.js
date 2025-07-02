@@ -7,7 +7,8 @@ const ProdutosExemplo = [
       descricao: "O produto é muito bonito porque...",
       imagens: [
           "wp1.jpg", "wp12.jpg", "wp13.jpg"
-      ]
+      ],
+      promocao: false,
   },
   {
     codigo: "1235",
@@ -17,7 +18,8 @@ const ProdutosExemplo = [
     descricao: "O produto é muito bonito porque...",
     imagens: [
         "wp2.jpg", "wp22.jpg", "wp23.jpg"
-    ]
+    ],
+    promocao: true,
 },
 {
   codigo: "1236",
@@ -27,7 +29,8 @@ const ProdutosExemplo = [
   descricao: "O produto é muito bonito porque...",
   imagens: [
       "wp3.jpg", "wp32.jpg", "wp33.jpg"
-  ]
+  ],
+  promocao: true,
 }
 ]
 export default ProdutosExemplo

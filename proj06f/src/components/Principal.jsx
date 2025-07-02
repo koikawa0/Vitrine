@@ -29,16 +29,19 @@ const ProdutoDados = styled.div`
 
 export default function Principal(props) {
   return <Modelo>
-    {props.produtos.map(function(produto, indice){
+    {props.produtos.map(function (produto, indice) {
       console.log("produto", produto)
       return <Produto key={indice}>
-        <ProdutoImagem src={produto.imagens?.[0]} alt="Product Photo"/>
-        <ProdutoDados>
-          <div>{produto.modelo}</div>
-          <div>R$ {produto.preco}</div>
-        </ProdutoDados>
+        <a href={"/produto/" + produto.codigo}>
+          <ProdutoImagem src={produto.imagens?.[0]} alt="Product Photo" />
+          <ProdutoDados>
+            <div>{produto.modelo}</div>
+            <div>R$ {produto.preco}</div>
+          </ProdutoDados>
+        </a>
       </Produto>
     }
     )}
   </Modelo>
+
 }
