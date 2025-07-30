@@ -3,6 +3,7 @@ import Navegacao from "../components/Navegacao";
 import ProdutosExemplo from "../datas/ProdutosExemplo";
 import Janela from "../components/Janela";
 import ObterCarrinho from "../functions/obterCarrinho";
+import Pagamento from "../functions/Pagamento";
 
 export default function Carrinho() {
   const [carrinho, definirCarrinho] = useState([]);
@@ -64,6 +65,8 @@ export default function Carrinho() {
           </tbody>
         </table>
         <h1>Total R$ {preco},00</h1>
+
+        <button onClick={Pagamento}>Pagamento por PIX</button>
       </Janela>
     </>
   );
