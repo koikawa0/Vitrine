@@ -4,15 +4,31 @@ import ProdutosExemplo from "../datas/ProdutosExemplo";
 import Janela from "../components/Janela";
 import ObterCarrinho from "../functions/obterCarrinho";
 import Pagamento from "../functions/Pagamento";
+import { ObterProdutos } from "../functions/RequisicaoServidor";
+
+const [produtos, definirProdutos] = useState([]);
+
+useEffect(function () {
+  ObterProdutos()
+    .then(function (resposta) {
+      if (resposta.status === 200) definirProdutos(resposta.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+});
 
 export default function Carrinho() {
   const [carrinho, definirCarrinho] = useState([]);
   const [preco, definirPreco] = useState(0);
 
-  useEffect(function () {
-    const resultado = ObterCarrinho();
-    definirCarrinho(resultado);
-  }, []);
+  useEffect(
+    function () {
+      const resultado = ObterCarrinho();
+      definirCarrinho(resultado);
+    },
+    [produtos]
+  );
 
   useEffect(
     function () {
@@ -23,11 +39,11 @@ export default function Carrinho() {
       });
       definirPreco(total);
     },
-    [carrinho]
+    [produtos, carrinho]
   );
 
   const linhas = carrinho.map(function (codigo, indice) {
-    for (const produto of ProdutosExemplo) {
+    for (const produto of produtos) {
       if (produto.codigo == codigo)
         return (
           <tr key={indice}>
@@ -47,27 +63,29 @@ export default function Carrinho() {
         <a href="/carrinho">Carrinho</a>
       </Navegacao>
 
-      <Janela>
-        <table width="100%">
-          <tbody>
-            <tr>
-              <td>
-                <b>Código</b>
-              </td>
-              <td>
-                <b>Modelo do Produto</b>
-              </td>
-              <td>
-                <b>Preço</b>
-              </td>
-            </tr>
-            {linhas}
-          </tbody>
-        </table>
-        <h1>Total R$ {preco},00</h1>
+      {produtos.lenght > 0 && (
+        <Janela>
+          <table width="100%">
+            <tbody>
+              <tr>
+                <td>
+                  <b>Código</b>
+                </td>
+                <td>
+                  <b>Modelo do Produto</b>
+                </td>
+                <td>
+                  <b>Preço</b>
+                </td>
+              </tr>
+              {linhas}
+            </tbody>
+          </table>
+          <h1>Total R$ {preco},00</h1>
 
-        <button onClick={Pagamento}>Pagamento por PIX</button>
-      </Janela>
+          <button onClick={Pagamento}>Pagamento por PIX</button>
+        </Janela>
+      )}
     </>
   );
 }
