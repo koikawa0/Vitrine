@@ -6,45 +6,43 @@ import ObterCarrinho from "../functions/obterCarrinho";
 import Pagamento from "../functions/Pagamento";
 import { ObterProdutos } from "../functions/RequisicaoServidor";
 
-const [produtos, definirProdutos] = useState([]);
-
-useEffect(function () {
-  ObterProdutos()
-    .then(function (resposta) {
-      if (resposta.status === 200) definirProdutos(resposta.data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-});
-
 export default function Carrinho() {
+  const [produtos, definirProdutos] = useState([]);
   const [carrinho, definirCarrinho] = useState([]);
   const [preco, definirPreco] = useState(0);
 
-  useEffect(
-    function () {
-      const resultado = ObterCarrinho();
-      definirCarrinho(resultado);
-    },
-    [produtos]
-  );
-
-  useEffect(
-    function () {
-      var total = 0;
-      carrinho.map(function (codigo) {
-        for (const produto of ProdutosExemplo)
-          if (produto.codigo == codigo) total += parseInt(produto.preco);
+  // Get products from server once
+  useEffect(() => {
+    ObterProdutos()
+      .then((resposta) => {
+        if (resposta.status === 200) definirProdutos(resposta.data);
+      })
+      .catch(function (error) {
+        console.log(error);
       });
-      definirPreco(total);
-    },
-    [produtos, carrinho]
-  );
+  }, []);
 
-  const linhas = carrinho.map(function (codigo, indice) {
+  // Get cart items each time products update
+  useEffect(() => {
+    const resultado = ObterCarrinho();
+    definirCarrinho(resultado);
+  }, [produtos]);
+
+  // Recalculates total every time products or carrinho changes
+  useEffect(() => {
+    let total = 0;
+    carrinho.forEach((codigo) => {
+      for (const produto of ProdutosExemplo) {
+        if (produto.codigo === codigo) total += parseInt(produto.preco, 10);
+      }
+    });
+    definirPreco(total);
+  }, [produtos, carrinho]);
+
+  // Render cart product lines
+  const linhas = carrinho.map((codigo, indice) => {
     for (const produto of produtos) {
-      if (produto.codigo == codigo)
+      if (produto.codigo === codigo)
         return (
           <tr key={indice}>
             <td>{produto.codigo}</td>
@@ -53,6 +51,7 @@ export default function Carrinho() {
           </tr>
         );
     }
+    return null;
   });
 
   return (
@@ -63,7 +62,7 @@ export default function Carrinho() {
         <a href="/carrinho">Carrinho</a>
       </Navegacao>
 
-      {produtos.lenght > 0 && (
+      {produtos.length > 0 && (
         <Janela>
           <table width="100%">
             <tbody>
@@ -82,7 +81,6 @@ export default function Carrinho() {
             </tbody>
           </table>
           <h1>Total R$ {preco},00</h1>
-
           <button onClick={Pagamento}>Pagamento por PIX</button>
         </Janela>
       )}
