@@ -28,12 +28,13 @@ export default function Carrinho() {
     definirCarrinho(resultado);
   }, [produtos]);
 
-  // Recalculates total every time products or carrinho changes
   useEffect(() => {
     let total = 0;
+    // Para cada item do carrinho, pegue o produto real da lista de produtos (do backend)
     carrinho.forEach((codigo) => {
-      for (const produto of ProdutosExemplo) {
-        if (produto.codigo === codigo) total += parseInt(produto.preco, 10);
+      const produto = produtos.find((produto) => produto.codigo === codigo);
+      if (produto) {
+        total += parseInt(produto.preco, 10);
       }
     });
     definirPreco(total);
